@@ -12,7 +12,7 @@ Hardware:
   - Adafruit Tower Light w/ Buzzer (Product 2993)
   - Adafruit NeoRGB Stemma Adapter (Product 5888)  -> GP1
   - N-Channel MOSFET buzzer switch (Product 355)   -> GP2
-  - Adafruit VEML7700 Lux Sensor (Product 4162)    -> I2C0 (GP4/GP5)
+  - Adafruit VEML7700 Lux Sensor (Product 4162)    -> STEMMA
   - Refresh button                                 -> GP0
 
 Libraries needed in /lib:
@@ -39,8 +39,6 @@ PIXEL_PIN   = board.GP1  # Board pin 2
 NUM_PIXELS  = 1
 BUZZER_PIN  = board.GP2  #           4
 BUTTON_PIN  = board.GP0  #           1
-I2C0_SDA    = board.GP4  #           6
-I2C0_SCL    = board.GP5  #           7
 
 # ── Buzzer ───────────────────────────────────────────────────────────────────
 BUZZER_FREQ  = 1000
@@ -95,8 +93,8 @@ button.pull       = digitalio.Pull.UP
 veml_present = False
 veml         = None
 try:
-    i2c0  = busio.I2C(I2C0_SCL, I2C0_SDA)
-    veml = adafruit_veml7700.VEML7700(i2c0)
+    i2c = board.STEMMA_I2C()
+    veml = adafruit_veml7700.VEML7700(i2c)
     veml_present = True
     print(f"VEML7700 found, lux = {veml.lux:.1f}")
 except Exception as exc:                       # not wired up — carry on
