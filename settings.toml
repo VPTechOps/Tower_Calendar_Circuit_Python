@@ -1,0 +1,15 @@
+CIRCUITPY_WIFI_SSID        = "Red Dwarf"
+CIRCUITPY_WIFI_PASSWORD    = "$DeadBeefC0deDeadBeefC0de!@"
+CIRCUITPY_WEB_API_PASSWORD = "DeadBeefC0de"
+CIRCUITPY_WEB_API_PORT     = 80
+
+ADAFRUIT_AIO_USERNAME      = "VPTechOps"
+ADAFRUIT_AIO_KEY           = "aio_GzVz49PcBtIkhRf0TACeovYTFrAX"
+ADAFRUIT_AIO_FEED_KEY      = "cal-events"
+
+UTC_OFFSET = "-7"
+
+timezone = "America/Phoenix"
+lat = "33.5858"
+lon = "-111.7486"
+appid = "424bbefc8d630ece1bdeb0d835b2f2f2"
