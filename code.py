@@ -68,14 +68,8 @@ GMT_OFFSET_HOURS   = int(os.getenv("UTC_OFFSET"))
 NTP_REFRESH_SEC    = 3600
 NTP_SOCKET_TIMEOUT = 10
 
-# ── Adafruit IO ──────────────────────────────────────────────────────────────
-AIO_USERNAME  = os.getenv("ADAFRUIT_AIO_USERNAME")
-AIO_KEY       = os.getenv("ADAFRUIT_AIO_KEY")
-AIO_FEED_KEY  = os.getenv("ADAFRUIT_AIO_FEED_KEY")
-AIO_URL       = (
-    f"https://io.adafruit.com/api/v2/{AIO_USERNAME}"
-    f"/feeds/{AIO_FEED_KEY}/data?include=value"
-)
+# ── Schedule data ────────────────────────────────────────────────────────────
+EVENT_SCHEDULE_DATA_FILE_NAME = "/Tower_calendar_data.txt"
 
 # ── State constants ──────────────────────────────────────────────────────────
 RED    =  0
@@ -335,7 +329,7 @@ def check_refresh_button():
 
 
 # ────────────────────────────────────────────────────────────────────────────
-# CSV / event parsing
+# CSV-like event parsing
 # ────────────────────────────────────────────────────────────────────────────
 
 def _trim_unquote(s):
@@ -400,15 +394,14 @@ def _parse_csv_line(line):
     }
 
 
-def parse_events_from_feed(json_array):
+def parse_events_from_feed(data_array):
     """
     Build event list from Adafruit IO JSON array.
     Lines starting with '*' are comments and are skipped.
     """
     events = []
 
-    for obj in json_array:
-        val = obj.get("value", "")
+    for val in data_array:
         if not val or val.startswith("*"):
             continue
         line = val.strip()
@@ -423,7 +416,7 @@ def parse_events_from_feed(json_array):
 
 
 # ───────────────────────────��────────────────────────────────────────────────
-# Adafruit IO fetch
+# Update schedule events
 # ────────────────────────────────────────────────────────────────────────────
 
 def refresh_data():
@@ -432,17 +425,14 @@ def refresh_data():
     show_color(RED)
     color_current = RED
 
-    print("Fetching feed …")
+    print("Fetching schedule data …")
     try:
-        resp = requests_session.get(AIO_URL, headers={"X-AIO-Key": AIO_KEY})
-        if resp.status_code == 200:
-            data     = resp.json()
+        with open(EVENT_SCHEDULE_DATA_FILE_NAME, "r") as f:
+            # Creates a list where each element is a single line string
+            data = f.readlines()
             g_events = parse_events_from_feed(data)
-        else:
-            print(f"HTTP error {resp.status_code}")
-        resp.close()
     except Exception as exc:
-        print(f"Feed fetch failed: {exc}")
+        print(f"File read failed: {exc}")
 
     # Confirmation beep
     buzzer_beep(500, 3000)   # 0.5 s on, 3 s off
