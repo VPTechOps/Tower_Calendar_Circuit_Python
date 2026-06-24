@@ -10,16 +10,16 @@ License:
 Hardware:
   - Raspberry Pi Pico 2W
   - Adafruit Tower Light w/ Buzzer (Product 2993)
-  - Adafruit NeoRGB Stemma Adapter (Product 5888)  -> GP22
+  - Adafruit NeoRGB Stemma Adapter (Product 5888)  -> GP1
   - N-Channel MOSFET buzzer switch (Product 355)   -> GP2
   - Adafruit VEML7700 Lux Sensor (Product 4162)    -> STEMMA
-  - Adafruit SSD1306 OLED 128x64 (Product 326)     -> STEMMA
+  - Adafruit SSD1306 OLED 128x64                   -> STEMMA
   - Refresh button                                 -> GP0
 
 Libraries needed in /lib:
   neopixel, adafruit_veml7700, adafruit_bus_device,
   adafruit_requests, adafruit_ntp, adafruit_connection_manager,
-  i2cdisplaybus, adafruit_displayio_ssd1306, adafruit_display_text
+  i2cdisplaybus, adafruit_displayio_ssd1306, adafruit_display_text  
 
 """
 
@@ -50,7 +50,7 @@ BUTTON_PIN  = board.GP0   #           1
 
 # ── OLED ─────────────────────────────────────────────────────────────────────
 OLED_WIDTH   = 128
-OLED_HEIGHT  = 64
+OLED_HEIGHT  = 64    # change to 64 if using a 128x64 display
 OLED_ADDR    = 0x3D
 
 # ── Buzzer ───────────────────────────────────────────────────────────────────
