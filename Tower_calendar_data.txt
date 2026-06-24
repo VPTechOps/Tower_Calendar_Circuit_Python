@@ -1,0 +1,15 @@
+* Field order is : stime,duration,dow,sdate,edate,event
+* 'dow' is MTWRFSU. Empty is all days. Multiple days are allowed
+* 'sdate' is yyyy/mm/dd. Empty is 2000/01/01
+* 'edate' is yyyy/mm/dd. Empty is 2099/12/31, unless sdate is not empty, then is set to sdate
+*
+14:30,3,,2026/06/24,,"Testing"
+08:00,60,T,,,"Adafruit - Deep Dive w/Tim"
+13:00,30,T,,,"Adafruit - JP's Product Pick of the Week"
+08:00,60,W,,,"Adafruit - 3D Hangouts"
+16:30,30,W,,,"Adafruit - Show & Tell"
+*17:00,60,W,,,"Adafruit - Ask an Engineer"
+13:00,60,R,,,"Adafruit - John Park's Workshop"
+14:00,60,F,,,"Adafruit - Deep Dive w/Scott"
+08:00,60,S,,,"FoamyGuy - CircuitPython w/Tim"
+*17:00,60,U,,,"Desk of Ladyada - Sunday Evening"
